@@ -59,6 +59,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AdminControllerTest.cs" />
     <Compile Include="FeatureToggleControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
