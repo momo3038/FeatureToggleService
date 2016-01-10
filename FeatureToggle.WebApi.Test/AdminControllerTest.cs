@@ -10,13 +10,15 @@ namespace FeatureToggle.WebApi.Test
     public class AdminControllerTest
     {
         private IFeatureToggleRepository _featureToogleRepository;
+        private IFeatureToggleValidator _validator;
         private AdminController _controller;
 
         [SetUp]
         public void Init()
         {
             _featureToogleRepository = Substitute.For<IFeatureToggleRepository>();
-            _controller = new AdminController(_featureToogleRepository);
+            _validator = Substitute.For<IFeatureToggleValidator>();
+            _controller = new AdminController(_featureToogleRepository, _validator);
         }
 
         [Test]
@@ -46,6 +48,10 @@ namespace FeatureToggle.WebApi.Test
             };
 
             _controller.Create(featureToCreate);
+
+            _validator
+                .Received(1)
+                .ThrowExceptionIfError(Arg.Is(featureToCreate));
 
             _featureToogleRepository
                 .Received(1)

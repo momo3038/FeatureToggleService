@@ -39,16 +39,18 @@ namespace FeatureToggleService.Db
         public void Delete(Guid id)
         {
             _connection.Execute("delete FeatureToggle where Id = @Id", new { Id = id });
+            AddAudit(id, FeatureStatus.Deleted);
         }
 
         public void ChangeValue(Guid featureId, bool value)
         {
             _connection.Execute("update FeatureToggle set Enable = @Value where Id = @Id", new { Value = value, Id = featureId });
+            AddAudit(featureId, FeatureStatus.Modified, value);
         }
 
         public void Create(ToggleFeat feature)
         {
-            _connection.Execute("insert into FeatureToggle set Id = @Id, Name = @Name, Type = @Type, Enable = @Enable, Description = @Description",
+            _connection.Execute("insert into FeatureToggle (Id, Name, Type, Enable, Description) values (@Id, @Name, @Type, @Enable, @Description)",
                 new
                 {
                     Id = feature.Id,
@@ -57,6 +59,27 @@ namespace FeatureToggleService.Db
                     Enable = feature.Enable,
                     Description = feature.Description
                 });
+
+            AddAudit(feature.Id, FeatureStatus.Created, feature.Enable);
         }
+
+        private void AddAudit(Guid featureId, FeatureStatus status, bool? value = null)
+        {
+            _connection.Execute(
+                "insert into FeatureToggleAudit (Id, Status, Enable, @ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", new
+                {
+                    Id = featureId,
+                    Status = status,
+                    Enable = value,
+                    ModificationDate = DateTime.Now
+                });
+        }
+    }
+
+    internal enum FeatureStatus
+    {
+        Created,
+        Modified,
+        Deleted
     }
 }

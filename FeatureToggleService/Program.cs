@@ -1,19 +1,16 @@
-﻿using FeatureToggleService.WebApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NLog;
 using Topshelf;
 
 namespace FeatureToggleService
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            var logger = LogManager.GetCurrentClassLogger();
             HostFactory.Run(x =>
             {
+                logger.Info("Starting TopShelf Service");
                 x.Service<WebApiBoostraper>(s =>
                 {
                     s.ConstructUsing(name => new WebApiBoostraper());

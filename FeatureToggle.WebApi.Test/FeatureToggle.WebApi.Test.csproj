@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="AdminControllerTest.cs" />
     <Compile Include="FeatureToggleControllerTest.cs" />
+    <Compile Include="FeatureToggleValidatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

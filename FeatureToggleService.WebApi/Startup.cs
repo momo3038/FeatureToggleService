@@ -1,6 +1,8 @@
 ﻿using System.Data.SqlClient;
+using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using Autofac;
 using Autofac.Integration.WebApi;
 using DapperWrapper;
@@ -24,11 +26,9 @@ namespace FeatureToggleService.WebApi
 
             app.UseAutofacMiddleware(container);
 
-            var config = new HttpConfiguration
-            {
-                DependencyResolver = new AutofacWebApiDependencyResolver(container)
-            };
-
+            var config = new HttpConfiguration();
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -37,6 +37,9 @@ namespace FeatureToggleService.WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Services.Replace(typeof(IExceptionHandler), new UnhandledErrorService());
+
+            app.Use(typeof(LogginMiddlware));
             app.UseWebApi(config);
         }
 

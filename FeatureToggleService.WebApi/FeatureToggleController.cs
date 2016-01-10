@@ -7,7 +7,6 @@ namespace FeatureToggleService.WebApi
     public class FeatureToggleController : ApiController
     {
         private readonly IFeatureToggleRepository _repository;
-
         public FeatureToggleController(IFeatureToggleRepository repository)
         {
             _repository = repository;

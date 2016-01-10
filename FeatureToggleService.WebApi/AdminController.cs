@@ -8,10 +8,12 @@ namespace FeatureToggleService.WebApi
     public class AdminController : ApiController
     {
         private readonly IFeatureToggleRepository _repository;
+        private readonly IFeatureToggleValidator _validator;
 
-        public AdminController(IFeatureToggleRepository repository)
+        public AdminController(IFeatureToggleRepository repository, IFeatureToggleValidator validator)
         {
             _repository = repository;
+            _validator = validator;
         }
 
         [HttpGet]
@@ -39,6 +41,7 @@ namespace FeatureToggleService.WebApi
         [Route("api/Admin")]
         public void Create([FromBody]ToggleFeat featureToCreate)
         {
+            _validator.ThrowExceptionIfError(featureToCreate);
             _repository.Create(featureToCreate);
         }
     }
