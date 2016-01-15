@@ -8,6 +8,7 @@ using Autofac.Integration.WebApi;
 using DapperWrapper;
 using FeatureToggleService.Db;
 using Owin;
+using Swashbuckle.Application;
 
 namespace FeatureToggleService.WebApi
 {
@@ -21,12 +22,15 @@ namespace FeatureToggleService.WebApi
             builder.RegisterInstance(GetDbExecutor(ConnectionString)).As<IDbExecutor>();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterType<FeatureToggleRepository>().As<IFeatureToggleRepository>().SingleInstance();
+            builder.RegisterType<FeatureToggleValidator>().As<IFeatureToggleValidator>().SingleInstance();
 
             var container = builder.Build();
 
             app.UseAutofacMiddleware(container);
 
             var config = new HttpConfiguration();
+            config.EnableSwagger(c => c.SingleApiVersion("v1", "Feature Toggle Service API"))
+                  .EnableSwaggerUi();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             config.Formatters.Remove(config.Formatters.XmlFormatter);
             config.MapHttpAttributeRoutes();

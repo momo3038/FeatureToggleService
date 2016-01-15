@@ -52,7 +52,7 @@ namespace FeatureToggle.Db
             repository.ChangeValue(featureToDelete.Id, true);
 
             _dbConnection.Received(1).Execute("update FeatureToggle set Enable = @Value where Id = @Id", Arg.Any<object>());
-            _dbConnection.Received(1).Execute("insert into FeatureToggleAudit (Id, Status, Enable, @ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", Arg.Any<object>());
+            _dbConnection.Received(1).Execute("insert into FeatureToggleAudit (Id, Status, Enable, ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", Arg.Any<object>());
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace FeatureToggle.Db
             repository.Create(featureToCreate);
 
             _dbConnection.Received(1).Execute("insert into FeatureToggle (Id, Name, Type, Enable, Description) values (@Id, @Name, @Type, @Enable, @Description)", Arg.Any<object>());
-            _dbConnection.Received(1).Execute("insert into FeatureToggleAudit (Id, Status, Enable, @ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", Arg.Any<object>());
+            _dbConnection.Received(1).Execute("insert into FeatureToggleAudit (Id, Status, Enable, ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", Arg.Any<object>());
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace FeatureToggle.Db
             repository.Delete(featureToDelete.Id);
 
             _dbConnection.Received(1).Execute("delete FeatureToggle where Id = @Id", Arg.Any<object>());
-            _dbConnection.Received(1).Execute("insert into FeatureToggleAudit (Id, Status, Enable, @ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", Arg.Any<object>());
+            _dbConnection.Received(1).Execute("insert into FeatureToggleAudit (Id, Status, Enable, ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", Arg.Any<object>());
         }
     }
 }

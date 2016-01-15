@@ -30,9 +30,9 @@ namespace FeatureToggleService.WebApi
             _repository.Delete(featureId);
         }
 
-        [HttpGet]
+        [HttpPut]
         [Route("api/Admin/{featureId}/{value}")]
-        public void ChangeValue(Guid featureId, bool value)
+        public void ChangeValue([FromUri]Guid featureId, [FromUri]bool value)
         {
             _repository.ChangeValue(featureId, value);
         }

@@ -66,7 +66,7 @@ namespace FeatureToggleService.Db
         private void AddAudit(Guid featureId, FeatureStatus status, bool? value = null)
         {
             _connection.Execute(
-                "insert into FeatureToggleAudit (Id, Status, Enable, @ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", new
+                "insert into FeatureToggleAudit (Id, Status, Enable, ModificationDate) values (@Id, @Status, @Enable, @ModificationDate)", new
                 {
                     Id = featureId,
                     Status = status,
