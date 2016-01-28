@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using FeatureToggleService.Db;
+using FeatureToggleService.Data;
 using FeatureToggleService.WebApi;
 using NFluent;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace FeatureToggle.WebApi.Test
+namespace FeatureToggleService.WebApi.Test
 {
     public class FeatureToggleControllerTest
     {
@@ -24,7 +24,7 @@ namespace FeatureToggle.WebApi.Test
         {
             _featureToogleRepository
                 .GetAllByType(Arg.Any<string>())
-                .Returns(new List<FeatureToggleService.Db.FeatureToggle> { new FeatureToggleService.Db.FeatureToggle("Test") });
+                .Returns(new List<FeatureToggle> { new FeatureToggle("Test") });
 
             var result = _controller.GetAllByType("MyTypeOfToggle");
 

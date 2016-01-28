@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using FeatureToggleService.Db;
+using FeatureToggleService.Data;
 using FeatureToggleService.WebApi;
 using NFluent;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace FeatureToggle.WebApi.Test
+namespace FeatureToggleService.WebApi.Test
 {
     public class AdminControllerTest
     {
@@ -26,7 +26,7 @@ namespace FeatureToggle.WebApi.Test
         {
             _featureToogleRepository
                 .GetAll()
-                .Returns(new List<FeatureToggleService.Db.FeatureToggle> {new FeatureToggleService.Db.FeatureToggle("Test")});
+                .Returns(new List<FeatureToggle> {new FeatureToggle("Test")});
 
             var result = _controller.GetAll();
 
@@ -41,7 +41,7 @@ namespace FeatureToggle.WebApi.Test
         [Test]
         public void Should_create_a_feature_when_asked_for()
         {
-            var featureToCreate = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete")
+            var featureToCreate = new FeatureToggle("MyFeatureToDelete")
             {
                 Type = "Test",
                 Enable = true
@@ -61,7 +61,7 @@ namespace FeatureToggle.WebApi.Test
         [Test]
         public void Should_change_feature_value_when_asked_for()
         {
-            var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToModify");
+            var featureToDelete = new FeatureToggle("MyFeatureToModify");
 
             _controller.ChangeValue(featureToDelete.Id, true);
 
@@ -73,7 +73,7 @@ namespace FeatureToggle.WebApi.Test
         [Test]
         public void Should_delete_a_feature_when_asked_for()
         {
-            var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete");
+            var featureToDelete = new FeatureToggle("MyFeatureToDelete");
 
             _controller.Delete(featureToDelete.Id);
 

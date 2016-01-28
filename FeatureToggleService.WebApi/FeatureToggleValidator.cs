@@ -1,5 +1,5 @@
 ﻿using System;
-using FeatureToggleService.Db;
+using FeatureToggleService.Data;
 
 namespace FeatureToggleService.WebApi
 {

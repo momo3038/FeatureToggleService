@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DapperWrapper;
 
-namespace FeatureToggleService.Db
+namespace FeatureToggleService.Data
 {
     public class SqlServerRepository : IFeatureToggleRepository
     {

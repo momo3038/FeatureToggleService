@@ -1,6 +1,6 @@
 using System;
 
-namespace FeatureToggleService.Db
+namespace FeatureToggleService.Data
 {
     public class FeatureToggle
     {

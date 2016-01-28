@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using FeatureToggleService.Db;
+using FeatureToggleService.Data;
 
 namespace FeatureToggleService.WebApi
 {

@@ -1,10 +1,10 @@
 ﻿using System;
-using FeatureToggleService.Db;
+using FeatureToggleService.Data;
 using FeatureToggleService.WebApi;
 using NFluent;
 using NUnit.Framework;
 
-namespace FeatureToggle.WebApi.Test
+namespace FeatureToggleService.WebApi.Test
 {
     public class FeatureToggleValidatorTest
     {
@@ -19,7 +19,7 @@ namespace FeatureToggle.WebApi.Test
         [Test]
         public void Should_throw_an_exception_if_guid_is_empty()
         {
-            var toggle = new FeatureToggleService.Db.FeatureToggle
+            var toggle = new FeatureToggle
             {
                 Id = Guid.Empty
             };
@@ -30,7 +30,7 @@ namespace FeatureToggle.WebApi.Test
         [Test]
         public void Should_throw_an_exception_if_name_is_not_defined()
         {
-            var toggle = new FeatureToggleService.Db.FeatureToggle
+            var toggle = new FeatureToggle
             {
                 Id = Guid.NewGuid(),
                 Name = ""

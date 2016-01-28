@@ -6,7 +6,7 @@ using System.Web.Http.ExceptionHandling;
 using Autofac;
 using Autofac.Integration.WebApi;
 using DapperWrapper;
-using FeatureToggleService.Db;
+using FeatureToggleService.Data;
 using Owin;
 using Swashbuckle.Application;
 
