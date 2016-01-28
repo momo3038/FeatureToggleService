@@ -14,7 +14,7 @@ namespace FeatureToggleService.WebApi
 {
     public class Startup
     {
-        private const string ConnectionString = "Data Source=LAPTOP-MORGAN\\SQLEXPRESS;Initial Catalog=FeatureToggle;Integrated Security=true;";
+        private string ConnectionString = WebApiConfiguration.SqlServerConnectionString;
 
         public void Configuration(IAppBuilder app)
         {

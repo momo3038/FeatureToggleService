@@ -2,12 +2,13 @@
 using FeatureToggleService.WebApi;
 using Microsoft.Owin.Hosting;
 using NLog;
+using System.Configuration;
 
 namespace FeatureToggleService
 {
     public class WebApiBoostraper
     {
-        private string baseAddress = "http://localhost:9000/";
+        private string baseAddress = WebApiConfiguration.OwinHost;
         private IDisposable _server;
         readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
