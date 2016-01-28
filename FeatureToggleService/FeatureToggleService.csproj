@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BrowserLog">
+      <HintPath>..\packages\BrowserLog.NLog.1.5.0.0\lib\net45\BrowserLog.dll</HintPath>
+    </Reference>
+    <Reference Include="BrowserLog.NLog">
+      <HintPath>..\packages\BrowserLog.NLog.1.5.0.0\lib\net45\BrowserLog.NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
