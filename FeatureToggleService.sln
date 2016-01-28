@@ -7,13 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService", "Fea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.WebApi", "FeatureToggleService.WebApi\FeatureToggleService.WebApi.csproj", "{34BC8965-4126-4616-9E93-6E210F4DC381}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.Db", "FeatureToggleService.Db\FeatureToggleService.Db.csproj", "{4DE36FF1-D403-4B63-AC6A-CDC06818B253}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.Data", "FeatureToggleService.Data\FeatureToggleService.Data.csproj", "{4DE36FF1-D403-4B63-AC6A-CDC06818B253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggle.WebApi.Test", "FeatureToggle.WebApi.Test\FeatureToggle.WebApi.Test.csproj", "{504098EB-DB60-4145-8F85-F89C23AE2071}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.WebApi.Test", "FeatureToggleService.WebApi.Test\FeatureToggleService.WebApi.Test.csproj", "{504098EB-DB60-4145-8F85-F89C23AE2071}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4C6792D8-69A0-49B7-BD9C-6D7D85929DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggle.Db", "FeatureToggle.Db\FeatureToggle.Db.csproj", "{4E18322D-B1DC-4A82-B2D1-5455EA4BB908}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.Data.Test", "FeatureToggleService.Data.Test\FeatureToggleService.Data.Test.csproj", "{4E18322D-B1DC-4A82-B2D1-5455EA4BB908}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

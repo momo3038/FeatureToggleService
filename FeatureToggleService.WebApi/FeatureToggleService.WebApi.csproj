@@ -108,9 +108,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FeatureToggleService.Db\FeatureToggleService.Db.csproj">
+    <ProjectReference Include="..\FeatureToggleService.Data\FeatureToggleService.Data.csproj">
       <Project>{4de36ff1-d403-4b63-ac6a-cdc06818b253}</Project>
-      <Name>FeatureToggleService.Db</Name>
+      <Name>FeatureToggleService.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
