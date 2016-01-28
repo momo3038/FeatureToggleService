@@ -19,9 +19,9 @@ namespace FeatureToggle.Db
         }
 
         [Test]
-        public void CanRetrieveAllToggle()
+        public void Should_retrieve_all_toggle()
         {
-            _dbConnection.Query<ToggleFeat>(Arg.Any<string>()).Returns(new List<ToggleFeat>() { new ToggleFeat("Test") });
+            _dbConnection.Query<FeatureToggleService.Db.FeatureToggle>(Arg.Any<string>()).Returns(new List<FeatureToggleService.Db.FeatureToggle>() { new FeatureToggleService.Db.FeatureToggle("Test") });
             var repository = new FeatureToggleRepository(_dbConnection);
 
             var result = repository.GetAll();
@@ -31,9 +31,9 @@ namespace FeatureToggle.Db
         }
 
         [Test]
-        public void CanRetrieveFeatureToggleByType()
+        public void Should_retrieve_a_feature_toggle_by_type()
         {
-            _dbConnection.Query<ToggleFeat>(Arg.Any<string>(), Arg.Any<object>()).Returns(new List<ToggleFeat>() { new ToggleFeat("Test", "MyType") });
+            _dbConnection.Query<FeatureToggleService.Db.FeatureToggle>(Arg.Any<string>(), Arg.Any<object>()).Returns(new List<FeatureToggleService.Db.FeatureToggle>() { new FeatureToggleService.Db.FeatureToggle("Test", "MyType") });
             var repository = new FeatureToggleRepository(_dbConnection);
 
             var result = repository.GetAllByType("MyType");
@@ -43,9 +43,9 @@ namespace FeatureToggle.Db
         }
 
         [Test]
-        public void ShouldChangeAFeatureValueAndAudit()
+        public void Should_change_a_feature_value_and_audit()
         {
-            var featureToDelete = new ToggleFeat("MyFeatureToDelete");
+            var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete");
 
             var repository = new FeatureToggleRepository(_dbConnection);
 
@@ -56,9 +56,9 @@ namespace FeatureToggle.Db
         }
 
         [Test]
-        public void ShouldCreateAFeatureAndAudit()
+        public void Should_create_a_feature_and_audit()
         {
-            var featureToCreate = new ToggleFeat("MyFeatureToDelete")
+            var featureToCreate = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete")
             {
                 Type = "Test",
                 Enable = true
@@ -73,9 +73,9 @@ namespace FeatureToggle.Db
         }
 
         [Test]
-        public void ShouldDeleteAFeatureAndAudit()
+        public void Should_delete_a_feature_and_audit()
         {
-            var featureToDelete = new ToggleFeat("MyFeatureToDelete");
+            var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete");
 
             var repository = new FeatureToggleRepository(_dbConnection);
 

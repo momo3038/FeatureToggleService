@@ -22,11 +22,11 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldGetAllFeatureWhenGetAllRoute()
+        public void Should_get_all_feature_whenGetAllRoute()
         {
             _featureToogleRepository
                 .GetAll()
-                .Returns(new List<ToggleFeat> {new ToggleFeat("Test")});
+                .Returns(new List<FeatureToggleService.Db.FeatureToggle> {new FeatureToggleService.Db.FeatureToggle("Test")});
 
             var result = _controller.GetAll();
 
@@ -39,9 +39,9 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldCreateAFeatureWhenCreateRoute()
+        public void Should_create_a_feature_when_asked_for()
         {
-            var featureToCreate = new ToggleFeat("MyFeatureToDelete")
+            var featureToCreate = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete")
             {
                 Type = "Test",
                 Enable = true
@@ -59,9 +59,9 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldChangeFeatureValueWhenChangeRoute()
+        public void Should_change_feature_value_when_asked_for()
         {
-            var featureToDelete = new ToggleFeat("MyFeatureToModify");
+            var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToModify");
 
             _controller.ChangeValue(featureToDelete.Id, true);
 
@@ -71,9 +71,9 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldDeleteAFeatureWhenDeleteRoute()
+        public void Should_delete_a_feature_when_asked_for()
         {
-            var featureToDelete = new ToggleFeat("MyFeatureToDelete");
+            var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete");
 
             _controller.Delete(featureToDelete.Id);
 

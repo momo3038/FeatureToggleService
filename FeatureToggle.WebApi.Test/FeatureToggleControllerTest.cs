@@ -20,11 +20,11 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldReturnToggleWhenGetAllForType()
+        public void Should_return_toggle_when_get_all_by_type()
         {
             _featureToogleRepository
                 .GetAllByType(Arg.Any<string>())
-                .Returns(new List<ToggleFeat> { new ToggleFeat("Test") });
+                .Returns(new List<FeatureToggleService.Db.FeatureToggle> { new FeatureToggleService.Db.FeatureToggle("Test") });
 
             var result = _controller.GetAllByType("MyTypeOfToggle");
 
@@ -37,7 +37,7 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldReturnEmptyListIfNoTypeProvided()
+        public void Should_return_empty_list_if_no_type_provided()
         {
             var result = _controller.GetAllByType(null);
 

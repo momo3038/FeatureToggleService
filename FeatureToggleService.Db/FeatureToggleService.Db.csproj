@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="FeatureToggleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToggleFeat.cs" />
+    <Compile Include="FeatureToggle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

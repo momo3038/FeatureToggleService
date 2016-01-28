@@ -13,7 +13,7 @@ namespace FeatureToggleService.WebApi
         }
 
         [Route("api/Type/{featureType}")]
-        public IEnumerable<ToggleFeat> GetAllByType(string featureType)
+        public IEnumerable<FeatureToggle> GetAllByType(string featureType)
         {
             var all = _repository.GetAllByType(featureType);
             return all;

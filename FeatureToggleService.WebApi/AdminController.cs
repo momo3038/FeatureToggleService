@@ -18,7 +18,7 @@ namespace FeatureToggleService.WebApi
 
         [HttpGet]
         [Route("api/Admin/All")]
-        public IEnumerable<ToggleFeat> GetAll()
+        public IEnumerable<FeatureToggle> GetAll()
         {
             return _repository.GetAll();
         }
@@ -39,7 +39,7 @@ namespace FeatureToggleService.WebApi
 
         [HttpPost]
         [Route("api/Admin")]
-        public void Create([FromBody]ToggleFeat featureToCreate)
+        public void Create([FromBody]FeatureToggle featureToCreate)
         {
             _validator.ThrowExceptionIfError(featureToCreate);
             _repository.Create(featureToCreate);

@@ -17,9 +17,9 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldThrowAnExceptionIfGuidIsEmpty()
+        public void Should_throw_an_exception_if_guid_is_empty()
         {
-            var toggle = new ToggleFeat
+            var toggle = new FeatureToggleService.Db.FeatureToggle
             {
                 Id = Guid.Empty
             };
@@ -28,9 +28,9 @@ namespace FeatureToggle.WebApi.Test
         }
 
         [Test]
-        public void ShouldThrowAnExceptionIfNameIsNotDefined()
+        public void Should_throw_an_exception_if_name_is_not_defined()
         {
-            var toggle = new ToggleFeat
+            var toggle = new FeatureToggleService.Db.FeatureToggle
             {
                 Id = Guid.NewGuid(),
                 Name = ""

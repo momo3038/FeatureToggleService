@@ -2,14 +2,14 @@ using System;
 
 namespace FeatureToggleService.Db
 {
-    public class ToggleFeat
+    public class FeatureToggle
     {
-        public ToggleFeat()
+        public FeatureToggle()
         {
             
         }
 
-        public ToggleFeat(string name, string type = null)
+        public FeatureToggle(string name, string type = null)
         {
             Id = Guid.NewGuid();
             Name = name;
