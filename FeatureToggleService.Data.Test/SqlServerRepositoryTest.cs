@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace FeatureToggle.Db
 {
-    public class FeatureToggleRepositoryTest
+    public class SqlServerRepositoryTest
     {
         private IDbExecutor _dbConnection;
 
@@ -22,7 +22,7 @@ namespace FeatureToggle.Db
         public void Should_retrieve_all_toggle()
         {
             _dbConnection.Query<FeatureToggleService.Db.FeatureToggle>(Arg.Any<string>()).Returns(new List<FeatureToggleService.Db.FeatureToggle>() { new FeatureToggleService.Db.FeatureToggle("Test") });
-            var repository = new FeatureToggleRepository(_dbConnection);
+            var repository = new SqlServerRepository(_dbConnection);
 
             var result = repository.GetAll();
 
@@ -34,7 +34,7 @@ namespace FeatureToggle.Db
         public void Should_retrieve_a_feature_toggle_by_type()
         {
             _dbConnection.Query<FeatureToggleService.Db.FeatureToggle>(Arg.Any<string>(), Arg.Any<object>()).Returns(new List<FeatureToggleService.Db.FeatureToggle>() { new FeatureToggleService.Db.FeatureToggle("Test", "MyType") });
-            var repository = new FeatureToggleRepository(_dbConnection);
+            var repository = new SqlServerRepository(_dbConnection);
 
             var result = repository.GetAllByType("MyType");
 
@@ -47,7 +47,7 @@ namespace FeatureToggle.Db
         {
             var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete");
 
-            var repository = new FeatureToggleRepository(_dbConnection);
+            var repository = new SqlServerRepository(_dbConnection);
 
             repository.ChangeValue(featureToDelete.Id, true);
 
@@ -64,7 +64,7 @@ namespace FeatureToggle.Db
                 Enable = true
             };
 
-            var repository = new FeatureToggleRepository(_dbConnection);
+            var repository = new SqlServerRepository(_dbConnection);
 
             repository.Create(featureToCreate);
 
@@ -77,7 +77,7 @@ namespace FeatureToggle.Db
         {
             var featureToDelete = new FeatureToggleService.Db.FeatureToggle("MyFeatureToDelete");
 
-            var repository = new FeatureToggleRepository(_dbConnection);
+            var repository = new SqlServerRepository(_dbConnection);
 
             repository.Delete(featureToDelete.Id);
 

@@ -21,7 +21,7 @@ namespace FeatureToggleService.WebApi
             var builder = new ContainerBuilder();
             builder.RegisterInstance(GetDbExecutor(ConnectionString)).As<IDbExecutor>();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterType<FeatureToggleRepository>().As<IFeatureToggleRepository>().SingleInstance();
+            builder.RegisterType<SqlServerRepository>().As<IFeatureToggleRepository>().SingleInstance();
             builder.RegisterType<FeatureToggleValidator>().As<IFeatureToggleValidator>().SingleInstance();
 
             var container = builder.Build();

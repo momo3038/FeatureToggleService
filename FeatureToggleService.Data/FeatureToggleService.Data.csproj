@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FeatureToggleRepository.cs" />
+    <Compile Include="Repository\SqlServerRepository.cs" />
+    <Compile Include="Repository\IFeatureToggleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FeatureToggle.cs" />
   </ItemGroup>
