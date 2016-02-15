@@ -1,5 +1,4 @@
 ﻿using System.Data.SqlClient;
-using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
@@ -9,6 +8,7 @@ using DapperWrapper;
 using FeatureToggleService.Data;
 using Owin;
 using Swashbuckle.Application;
+using Microsoft.Owin.Cors;
 
 namespace FeatureToggleService.WebApi
 {
@@ -26,6 +26,7 @@ namespace FeatureToggleService.WebApi
 
             var container = builder.Build();
 
+            app.UseCors(CorsOptions.AllowAll);
             app.UseAutofacMiddleware(container);
 
             var config = new HttpConfiguration();
@@ -43,7 +44,7 @@ namespace FeatureToggleService.WebApi
 
             config.Services.Replace(typeof(IExceptionHandler), new UnhandledErrorService());
 
-            app.Use(typeof(LogginMiddlware));
+            app.Use(typeof(AuditMiddlware));
             app.UseWebApi(config);
         }
 

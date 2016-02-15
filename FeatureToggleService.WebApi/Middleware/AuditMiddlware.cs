@@ -5,10 +5,10 @@ using NLog;
 
 namespace FeatureToggleService.WebApi
 {
-    public class LogginMiddlware : OwinMiddleware
+    public class AuditMiddlware : OwinMiddleware
     {
         readonly Logger _logger = LogManager.GetCurrentClassLogger();
-        public LogginMiddlware(OwinMiddleware next)
+        public AuditMiddlware(OwinMiddleware next)
             : base(next)
         {
         }

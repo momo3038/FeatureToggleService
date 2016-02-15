@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Linq;
 using FeatureToggleService.Data;
 
 namespace FeatureToggleService.WebApi
@@ -17,10 +18,25 @@ namespace FeatureToggleService.WebApi
         }
 
         [HttpGet]
-        [Route("api/Admin/All")]
-        public IEnumerable<FeatureToggle> GetAll()
+        [Route("api/Admin")]
+        public IEnumerable<FeatureToggleByType> GetAll()
         {
-            return _repository.GetAll();
+            var allFeat = _repository.GetAll().ToList();
+
+            IList<FeatureToggleByType> result = new List<FeatureToggleByType>();
+
+             foreach (IGrouping<string, FeatureToggle> groupedFeat in allFeat.GroupBy(x => x.Type))
+               {
+                   var featureToogle = new FeatureToggleByType();
+                   featureToogle.Features = new List<FeatureToggle>();
+                   featureToogle.Type = groupedFeat.Key;
+
+                   foreach (FeatureToggle name in groupedFeat)
+                       featureToogle.Features.Add(name);
+
+                   result.Add(featureToogle);
+             }
+             return result; 
         }
 
         [HttpDelete]
