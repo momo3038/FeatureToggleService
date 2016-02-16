@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DapperWrapper;
-using FeatureToggleService.Data;
 using NFluent;
 using NSubstitute;
 using NUnit.Framework;

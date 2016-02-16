@@ -2,7 +2,6 @@
 using FeatureToggleService.WebApi;
 using Microsoft.Owin.Hosting;
 using NLog;
-using System.Configuration;
 
 namespace FeatureToggleService
 {

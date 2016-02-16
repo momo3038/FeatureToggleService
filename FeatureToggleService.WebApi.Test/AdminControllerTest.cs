@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using FeatureToggleService.Data;
-using FeatureToggleService.WebApi;
 using NFluent;
 using NSubstitute;
 using NUnit.Framework;
