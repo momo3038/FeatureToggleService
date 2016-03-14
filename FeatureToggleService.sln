@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService", "FeatureToggleService\FeatureToggleService.csproj", "{DC3D343D-64D8-429A-82CA-232A4D22409B}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4C6792D8-69A0-49B7-BD9C-6D7D85929DEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.Data.Test", "FeatureToggleService.Data.Test\FeatureToggleService.Data.Test.csproj", "{4E18322D-B1DC-4A82-B2D1-5455EA4BB908}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.Client", "FeatureToggleService.Client\FeatureToggleService.Client.csproj", "{C12D62A1-51BE-4880-BDD9-53894B92E893}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureToggleService.Client.Test", "FeatureToggleService.Client.Test\FeatureToggleService.Client.Test.csproj", "{E676AA92-6AB9-4737-AC6F-6D02BB77A63B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,14 @@ Global
 		{4E18322D-B1DC-4A82-B2D1-5455EA4BB908}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E18322D-B1DC-4A82-B2D1-5455EA4BB908}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E18322D-B1DC-4A82-B2D1-5455EA4BB908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C12D62A1-51BE-4880-BDD9-53894B92E893}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C12D62A1-51BE-4880-BDD9-53894B92E893}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C12D62A1-51BE-4880-BDD9-53894B92E893}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C12D62A1-51BE-4880-BDD9-53894B92E893}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E676AA92-6AB9-4737-AC6F-6D02BB77A63B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E676AA92-6AB9-4737-AC6F-6D02BB77A63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E676AA92-6AB9-4737-AC6F-6D02BB77A63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E676AA92-6AB9-4737-AC6F-6D02BB77A63B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +60,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{504098EB-DB60-4145-8F85-F89C23AE2071} = {4C6792D8-69A0-49B7-BD9C-6D7D85929DEA}
 		{4E18322D-B1DC-4A82-B2D1-5455EA4BB908} = {4C6792D8-69A0-49B7-BD9C-6D7D85929DEA}
+		{E676AA92-6AB9-4737-AC6F-6D02BB77A63B} = {4C6792D8-69A0-49B7-BD9C-6D7D85929DEA}
 	EndGlobalSection
 EndGlobal
