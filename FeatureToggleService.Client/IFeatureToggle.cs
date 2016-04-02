@@ -1,4 +1,4 @@
-﻿namespace FeatureToggleService.Client.Test
+﻿namespace FeatureToggleService.Client
 {
     public interface IFeatureToggle
     {

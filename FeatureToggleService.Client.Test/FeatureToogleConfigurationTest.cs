@@ -1,4 +1,5 @@
-﻿using NFluent;
+﻿using FeatureToggleService.Client.Feature;
+using NFluent;
 using NSubstitute;
 using NUnit.Framework;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace FeatureToggleService.Client.Test
 {
-    public class FeatureToogleConfiguration
+    public class FeatureToogleConfigurationTest
     {
         IFeatureToggleProvider _provider;
 
@@ -127,56 +128,6 @@ namespace FeatureToggleService.Client.Test
         public MyToogleWithUser(IFeatureToggleProvider provider) : base(provider)
         {
 
-        }
-    }
-
-
-    public class FeatureToggleDto
-    {
-        public bool IsEnable { get; internal set; }
-        public string Name { get; set; }
-        public List<string> Users { get; set; }
-    }
-
-    public class FeatureToggle : IFeatureToggle
-    {
-        protected IFeatureToggleProvider _provider;
-
-        protected FeatureToggle(IFeatureToggleProvider provider)
-        {
-            this._provider = provider;
-        }
-
-        public bool IsEnable
-        {
-            get
-            {
-                var feat = _provider.Get(this);
-                return feat.IsEnable;
-            }
-        }
-
-        public string Name { get; internal set; }
-    }
-
-    public class FeatureToggleWithUserRestriction : IFeatureToggle
-    {
-        public FeatureToggleDto FeatureToggle { get; private set; }
-        private IFeatureToggleProvider _provider;
-
-        protected FeatureToggleWithUserRestriction(IFeatureToggleProvider provider)
-        {
-            _provider = provider;
-            FeatureToggle = new FeatureToggleDto();
-        }
-
-        public bool IsEnable(string user)
-        {
-            var feat = _provider.Get(this);
-            if (!feat.IsEnable)
-                return false;
-
-            return feat.Users.Contains(user);
         }
     }
 
