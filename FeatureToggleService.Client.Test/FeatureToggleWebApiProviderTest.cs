@@ -1,4 +1,4 @@
-﻿using FeatureToggleService.Client.Providers;
+﻿using FeatureToggleService.Client.Provider;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -9,9 +9,9 @@ namespace FeatureToggleService.Client.Test
         [Test]
         public void ShouldToRetreiveToggle()
         {
-            var configuration = Substitute.For<IFeatureToogleProviderConfiguration>();
+            var configuration = Substitute.For<IProviderConfiguration>();
 
-            var provider = new FeatureToggleWebApiProvider(configuration);
+            var provider = new WebApiProvider(configuration);
 
              provider.Get(new MyToogle(provider));
         }

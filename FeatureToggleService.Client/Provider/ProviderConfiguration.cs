@@ -1,6 +1,6 @@
-﻿namespace FeatureToggleService.Client
+﻿namespace FeatureToggleService.Client.Provider
 {
-    public class FeatureToogleProviderConfiguration : IFeatureToogleProviderConfiguration
+    public class ProviderConfiguration : IProviderConfiguration
     {
         public string WebApiUrl
         {

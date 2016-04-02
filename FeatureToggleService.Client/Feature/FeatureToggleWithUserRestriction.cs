@@ -1,11 +1,13 @@
-﻿namespace FeatureToggleService.Client.Feature
+﻿using FeatureToggleService.Client.Provider;
+
+namespace FeatureToggleService.Client.Feature
 {
     public class FeatureToggleWithUserRestriction : IFeatureToggle
     {
         public FeatureToggleDto FeatureToggle { get; private set; }
-        private IFeatureToggleProvider _provider;
+        private IProvider _provider;
 
-        protected FeatureToggleWithUserRestriction(IFeatureToggleProvider provider)
+        protected FeatureToggleWithUserRestriction(IProvider provider)
         {
             _provider = provider;
             FeatureToggle = new FeatureToggleDto();
