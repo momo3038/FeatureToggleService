@@ -2,6 +2,7 @@
 {
     public interface IProviderConfiguration
     {
-        string WebApiUrl { get; }
+        string WebApiUrl { get; set; }
+        bool IsInitialized();
     }
 }
