@@ -1,27 +1,20 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Linq;
 
 namespace FeatureToggleService.Client.Provider
 {
     public class WebApiProvider : IProvider
     {
-        private IProviderConfiguration _configuration;
+        private readonly IInitProvider _provider;
 
-        public ConcurrentDictionary<string, FeatureToggleDto> FeatureToggleList { get; set; }
-
-        public WebApiProvider(IProviderConfiguration configuration)
+        public WebApiProvider(IInitProvider provider)
         {
-            _configuration = configuration;
-            FeatureToggleList = new ConcurrentDictionary<string, FeatureToggleDto>();
+            _provider = provider;
         }
 
         public FeatureToggleDto Get(IFeatureToggle featureToggle)
         {
-            FeatureToggleDto feature;
-            if (FeatureToggleList.TryGetValue(featureToggle.GetType().Name, out feature))
-            {
-                return feature;
-            }
-            return null;
+            var featureToggleDtos = _provider.GetAll();
+            return featureToggleDtos.SingleOrDefault(x => x.Name == featureToggle.GetType().Name);
         }
     }
 }

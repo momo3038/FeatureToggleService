@@ -26,7 +26,7 @@ namespace FeatureToggleService.Client.Test
                     IsEnable = true
                 });
 
-            var myToggle = new MyToogle(_provider);
+            var myToggle = new MyToggle(_provider);
             Check.That(myToggle.IsEnable).IsTrue();
         }
 
@@ -40,7 +40,7 @@ namespace FeatureToggleService.Client.Test
                     IsEnable = false
                 });
 
-            var myToggle = new MyToogle(_provider);
+            var myToggle = new MyToggle(_provider);
             Check.That(myToggle.IsEnable).IsFalse();
         }
 
@@ -54,7 +54,7 @@ namespace FeatureToggleService.Client.Test
                     Name = "Test"
                 });
 
-            var myToggle = new MyToogle(_provider);
+            var myToggle = new MyToggle(_provider);
             Check.That(myToggle.Name).IsEqualTo("Test");
         }
     }
@@ -125,10 +125,10 @@ namespace FeatureToggleService.Client.Test
     //}
 
 
-    public class MyToogle : FeatureToggle
+    public class MyToggle : FeatureToggle
     {
 
-        public MyToogle(IProvider provider) : base(provider)
+        public MyToggle(IProvider provider) : base(provider)
         {
 
         }

@@ -25,7 +25,7 @@ namespace FeatureToggleService.Client.Test
                     IsEnable = true
                 });
 
-            var myToggle = new MyToogle(_provider);
+            var myToggle = new MyToggle(_provider);
             Check.That(myToggle.IsEnable).IsTrue();
             _provider.Received(1).Get(Arg.Any<IFeatureToggle>());
         }
