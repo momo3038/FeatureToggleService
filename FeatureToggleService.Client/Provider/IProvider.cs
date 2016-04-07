@@ -13,21 +13,28 @@ namespace FeatureToggleService.Client.Provider
         FeatureToggleDto Get(IFeatureToggle featureToggle);
     }
 
-    public class WebApiProviderInitialisation
+    public interface IInitProvider
     {
-        private IProviderConfiguration _configuration;
+        IList<FeatureToggleDto> GetAll();
+    }
+
+    public class WebApiProviderInitialisation : IInitProvider
+    {
+        private readonly IProviderConfiguration _configuration;
         private IList<FeatureToggleDto> _features;
         private TimeSpan _pollingDelay;
 
-        public WebApiProviderInitialisation(IProviderConfiguration configuration, TimeSpan pollingDelay)
+        public WebApiProviderInitialisation(TimeSpan pollingDelay, IProviderConfiguration configuration)
         {
-            _configuration = configuration;
             _pollingDelay = pollingDelay;
+            _configuration = configuration;
             _features = new List<FeatureToggleDto>();
         }
 
         public IList<FeatureToggleDto> GetAll()
         {
+            if (!_configuration.IsInitialized())
+                throw new Exception("Toggle are not yet retrieved.");
             return _features;
         }
 
@@ -37,14 +44,14 @@ namespace FeatureToggleService.Client.Provider
             var token = cancellationTokenSource.Token;
             //var listener = Task.Factory.StartNew(async () =>
             //{
-            while (true)
-            {
-                if (token.IsCancellationRequested)
-                    break;
+            //while (true)
+            //{
+                //if (token.IsCancellationRequested)
+                //    break;
 
                 _features = await GetFeatureToggles();
                 //await Task.Delay(_pollingDelay);
-            }
+            //}
             //}, token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
@@ -62,13 +69,12 @@ namespace FeatureToggleService.Client.Provider
 
                         result.Position = 0;
                         StreamReader sr = new StreamReader(result);
-                        DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(FeatureToggleDto));
-                        FeatureToggleDto features = (FeatureToggleDto)ser.ReadObject(result);
-                        return new List<FeatureToggleDto> { features };
+                        DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<FeatureToggleDto>));
+                        List<FeatureToggleDto> features = (List<FeatureToggleDto>)ser.ReadObject(result);
+                        return features;
                     }
                 }
             }
         }
     }
-
 }
