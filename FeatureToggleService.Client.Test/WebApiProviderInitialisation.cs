@@ -29,8 +29,11 @@ namespace FeatureToggleService.Client.Test
                   .WithBody("[{\"IsEnable\":\"true\", \"Name\":\"Test\"},{\"IsEnable\":\"false\", \"Name\":\"Test2\"}]")
               );
 
-            var provider = new WebApiProviderInitialisation(TimeSpan.FromSeconds(2), configuration);
-            await provider.Start();
+            var provider = new WebApiProviderInitialisation(TimeSpan.FromMilliseconds(0), configuration);
+            await provider.Start(1);
+
+            await Task.Delay(2000);
+            provider.Stop();
 
             Check.That(provider.GetAll()).Not.IsEmpty();
             Check.That(provider.GetAll().Count).IsEqualTo(2);

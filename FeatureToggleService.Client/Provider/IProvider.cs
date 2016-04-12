@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
-using System.IO;
 
 namespace FeatureToggleService.Client.Provider
 {
@@ -22,7 +21,8 @@ namespace FeatureToggleService.Client.Provider
     {
         private readonly IProviderConfiguration _configuration;
         private IList<FeatureToggleDto> _features;
-        private TimeSpan _pollingDelay;
+        private readonly TimeSpan _pollingDelay;
+        private CancellationTokenSource _cancellationToken;
 
         public WebApiProviderInitialisation(TimeSpan pollingDelay, IProviderConfiguration configuration)
         {
@@ -38,21 +38,25 @@ namespace FeatureToggleService.Client.Provider
             return _features;
         }
 
-        public async Task Start()
+        public async Task Start(int? iterationTime = null)
         {
-            var cancellationTokenSource = new CancellationTokenSource();
-            var token = cancellationTokenSource.Token;
-            //var listener = Task.Factory.StartNew(async () =>
-            //{
-            //while (true)
-            //{
-                //if (token.IsCancellationRequested)
-                //    break;
+            _cancellationToken = new CancellationTokenSource();
+            await Task.Factory.StartNew(async () =>
+            {
+                while (!iterationTime.HasValue || iterationTime > 0)
+                {
+                    if (_cancellationToken.IsCancellationRequested)
+                        break;
 
-                _features = await GetFeatureToggles();
-                //await Task.Delay(_pollingDelay);
-            //}
-            //}, token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                    _features = await GetFeatureToggles();
+                    await Task.Delay(_pollingDelay, _cancellationToken.Token);
+                }
+            }, _cancellationToken.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+        }
+
+        public void Stop()
+        {
+            _cancellationToken.Cancel();
         }
 
         private async Task<IList<FeatureToggleDto>> GetFeatureToggles()
@@ -64,13 +68,11 @@ namespace FeatureToggleService.Client.Provider
                 {
                     using (HttpContent content = response.Content)
                     {
-                        var sss = await content.ReadAsStringAsync();
                         var result = await content.ReadAsStreamAsync();
 
                         result.Position = 0;
-                        StreamReader sr = new StreamReader(result);
-                        DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<FeatureToggleDto>));
-                        List<FeatureToggleDto> features = (List<FeatureToggleDto>)ser.ReadObject(result);
+                        var ser = new DataContractJsonSerializer(typeof(List<FeatureToggleDto>));
+                        var features = (List<FeatureToggleDto>)ser.ReadObject(result);
                         return features;
                     }
                 }
