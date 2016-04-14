@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
+using NLog;
 
 namespace FeatureToggleService.Client.Provider
 {
@@ -23,6 +24,8 @@ namespace FeatureToggleService.Client.Provider
         private IList<FeatureToggleDto> _features;
         private readonly TimeSpan _pollingDelay;
         private CancellationTokenSource _cancellationToken;
+        private bool _isInitialized;
+        private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public WebApiProviderInitialisation(TimeSpan pollingDelay, IProviderConfiguration configuration)
         {
@@ -33,13 +36,14 @@ namespace FeatureToggleService.Client.Provider
 
         public IList<FeatureToggleDto> GetAll()
         {
-            if (!_configuration.IsInitialized())
+            if (!_isInitialized)
                 throw new Exception("Toggle are not yet retrieved.");
             return _features;
         }
 
         public async Task Start(int? iterationTime = null)
         {
+            _logger.Debug("Starting polling WebApi with a {0}s polling interval", _pollingDelay.TotalSeconds);
             _cancellationToken = new CancellationTokenSource();
             await Task.Factory.StartNew(async () =>
             {
@@ -48,7 +52,22 @@ namespace FeatureToggleService.Client.Provider
                     if (_cancellationToken.IsCancellationRequested)
                         break;
 
-                    _features = await GetFeatureToggles();
+                    _logger.Debug("Trying to fetch feature toggles");
+                    var getFeatureTak = GetFeatureToggles();
+                    _features = await getFeatureTak;
+                    if (!_isInitialized && !getFeatureTak.IsFaulted)
+                    {
+                        _logger.Debug("First initialization done. ");
+                        _isInitialized = true;
+                    }
+
+                    if (getFeatureTak.IsFaulted)
+                    {
+                        _logger.Warn("Error when fetching feature toggles.");
+                        _logger.Warn("Exception: {0}", getFeatureTak.Exception?.Flatten().Message);
+                    }
+                    else _logger.Debug("{0} Features toggles correctly fetched.", _features.Count);
+
                     await Task.Delay(_pollingDelay, _cancellationToken.Token);
                 }
             }, _cancellationToken.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
@@ -56,17 +75,19 @@ namespace FeatureToggleService.Client.Provider
 
         public void Stop()
         {
+            _logger.Debug("Cancelling feature toggle polling task");
             _cancellationToken.Cancel();
         }
 
         private async Task<IList<FeatureToggleDto>> GetFeatureToggles()
         {
-            using (HttpClient client = new HttpClient())
+            using (var client = new HttpClient())
             {
                 var url = _configuration.WebApiUrl;
-                using (HttpResponseMessage response = await client.GetAsync(url))
+                _logger.Debug("Calling {0} route", url);
+                using (var response = await client.GetAsync(url))
                 {
-                    using (HttpContent content = response.Content)
+                    using (var content = response.Content)
                     {
                         var result = await content.ReadAsStreamAsync();
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 using FeatureToggleService.Data;
 
@@ -12,6 +13,13 @@ namespace FeatureToggleService.WebApi
             _repository = repository;
         }
 
+        [HttpHead]
+        [Route("api/hasUpdate")]
+        public void HasUpdate()
+        {
+        }
+
+        [HttpGet]
         [Route("api/Type/{featureType}")]
         public IEnumerable<FeatureToggle> GetAllByType(string featureType)
         {

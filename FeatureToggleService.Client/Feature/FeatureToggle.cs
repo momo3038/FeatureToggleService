@@ -1,23 +1,24 @@
-﻿using FeatureToggleService.Client.Provider;
+﻿using System;
+using FeatureToggleService.Client.Provider;
 
 namespace FeatureToggleService.Client.Feature
 {
     public class FeatureToggle : IFeatureToggle
     {
-        protected IProvider _provider;
-        private FeatureToggleDto _feature;
+        private readonly IProvider _provider;
+        private readonly Lazy<FeatureToggleDto> _feature;
 
         protected FeatureToggle(IProvider provider)
         {
-            this._provider = provider;
-            this._feature = _provider.Get(this);
+            _provider = provider;
+            _feature = new Lazy<FeatureToggleDto>(() => _provider.Get(this));
         }
 
         public bool IsEnable
         {
             get
             {
-                return _feature.IsEnable;
+                return _feature.Value.IsEnable;
             }
         }
 
@@ -25,7 +26,7 @@ namespace FeatureToggleService.Client.Feature
         {
             get
             {
-                return _feature.Name;
+                return _feature.Value.Name;
             }
         }
     }

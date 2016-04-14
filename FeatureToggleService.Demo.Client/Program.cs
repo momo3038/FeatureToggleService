@@ -17,8 +17,8 @@ namespace FeatureToggleService.Demo.Client
                 x.RunAsLocalSystem();
 
                 x.SetDescription("Feature Toggle Service Demo");
-                x.SetDisplayName("Demo Service");
-                x.SetServiceName("Demo Service");
+                x.SetDisplayName("DemoService");
+                x.SetServiceName("DemoService");
             });
         }
     }

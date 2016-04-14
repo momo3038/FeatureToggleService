@@ -20,7 +20,7 @@ namespace FeatureToggleService.Demo.Client
             var builder = new ContainerBuilder();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterInstance(new WebApiProviderInitialisation(TimeSpan.FromSeconds(10),
-                new ProviderConfiguration())).SingleInstance();
+                new ConfigFileConfiguration())).SingleInstance();
 
             var container = builder.Build();
 

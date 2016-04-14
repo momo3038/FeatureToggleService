@@ -16,7 +16,6 @@ namespace FeatureToggleService.Client.Test
             var server = FluentMockServer.Start();
             var configuration = Substitute.For<IProviderConfiguration>();
             configuration.WebApiUrl.Returns("http://localhost:" + server.Port + "/api/all");
-            configuration.IsInitialized().Returns(true);
 
             server
               .Given(
@@ -40,7 +39,7 @@ namespace FeatureToggleService.Client.Test
         }
 
         [Test]
-        public void Should_throw_Exception_if_Provider_if_not_initialized()
+        public void Should_throw_Exception_if_InitProvider_if_not_initialized()
         {
             var configuration = Substitute.For<IProviderConfiguration>();
             var provider = new WebApiProviderInitialisation(TimeSpan.FromSeconds(1),configuration);
