@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace FeatureToggleService.Client.Provider
 {
@@ -13,8 +14,17 @@ namespace FeatureToggleService.Client.Provider
 
         public FeatureToggleDto Get(IFeatureToggle featureToggle)
         {
+            return Get(featureToggle.GetType().Name);
+        }
+
+        public FeatureToggleDto Get(string featureToggleName, bool caseSensitive = true)
+        {
             var featureToggleDtos = _provider.GetAll();
-            return featureToggleDtos.SingleOrDefault(x => x.Name == featureToggle.GetType().Name);
+            if (caseSensitive)
+            {
+                return featureToggleDtos.SingleOrDefault(x => x.Name == featureToggleName);
+            }
+            return featureToggleDtos.SingleOrDefault(x => x.Name.ToLowerInvariant() == featureToggleName.ToLowerInvariant());
         }
     }
 }
