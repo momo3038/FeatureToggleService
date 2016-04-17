@@ -15,11 +15,12 @@ namespace FeatureToggleService.Client.Test
         {
             var server = FluentMockServer.Start();
             var configuration = Substitute.For<IProviderConfiguration>();
-            configuration.WebApiUrl.Returns("http://localhost:" + server.Port + "/api/all");
+            configuration.WebApiHost.Returns("http://localhost:" + server.Port + "/api/");
+            configuration.FeatureType.Returns("Demo");
 
             server
               .Given(
-                Requests.WithUrl("/api/all").
+                Requests.WithUrl("/api/Demo").
                 UsingGet()
               )
               .RespondWith(
@@ -28,7 +29,7 @@ namespace FeatureToggleService.Client.Test
                   .WithBody("[{\"IsEnable\":\"true\", \"Name\":\"Test\"},{\"IsEnable\":\"false\", \"Name\":\"Test2\"}]")
               );
 
-            var provider = new WebApiProviderInitialisation(TimeSpan.FromMilliseconds(0), configuration);
+            var provider = new WebApiProviderInitialisation(TimeSpan.FromMilliseconds(0), new WebApiUrl(configuration));
             await provider.Start(1);
 
             await Task.Delay(2000);
@@ -42,7 +43,7 @@ namespace FeatureToggleService.Client.Test
         public void Should_throw_Exception_if_InitProvider_if_not_initialized()
         {
             var configuration = Substitute.For<IProviderConfiguration>();
-            var provider = new WebApiProviderInitialisation(TimeSpan.FromSeconds(1),configuration);
+            var provider = new WebApiProviderInitialisation(TimeSpan.FromSeconds(1), new WebApiUrl(configuration));
             Check.ThatCode(() => provider.GetAll()).Throws<Exception>().WithMessage("Toggle are not yet retrieved.");
         }
     }

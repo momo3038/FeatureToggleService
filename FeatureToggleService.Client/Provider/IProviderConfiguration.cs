@@ -2,6 +2,7 @@
 {
     public interface IProviderConfiguration
     {
-        string WebApiUrl { get; set; }
+        string WebApiHost { get; set; }
+        string FeatureType { get; set; }
     }
 }

@@ -20,17 +20,17 @@ namespace FeatureToggleService.Client.Provider
 
     public class WebApiProviderInitialisation : IInitProvider
     {
-        private readonly IProviderConfiguration _configuration;
         private IList<FeatureToggleDto> _features;
         private readonly TimeSpan _pollingDelay;
+        private readonly WebApiUrl _url;
         private CancellationTokenSource _cancellationToken;
         private bool _isInitialized;
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
-        public WebApiProviderInitialisation(TimeSpan pollingDelay, IProviderConfiguration configuration)
+        public WebApiProviderInitialisation(TimeSpan pollingDelay, WebApiUrl url)
         {
             _pollingDelay = pollingDelay;
-            _configuration = configuration;
+            _url = url;
             _features = new List<FeatureToggleDto>();
         }
 
@@ -83,9 +83,9 @@ namespace FeatureToggleService.Client.Provider
         {
             using (var client = new HttpClient())
             {
-                var url = _configuration.WebApiUrl;
-                _logger.Debug("Calling {0} route", url);
-                using (var response = await client.GetAsync(url))
+                var webApiUrl = _url.Get();
+                _logger.Debug("Calling {0} route", webApiUrl.AbsolutePath);
+                using (var response = await client.GetAsync(webApiUrl))
                 {
                     using (var content = response.Content)
                     {

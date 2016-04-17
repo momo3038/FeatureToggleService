@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using Autofac;
 using Autofac.Integration.WebApi;
+using FeatureToggleService.Client;
 using FeatureToggleService.Client.Provider;
 using Owin;
 
@@ -19,9 +20,6 @@ namespace FeatureToggleService.Demo.Client
         {
             var builder = new ContainerBuilder();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterInstance(new WebApiProviderInitialisation(TimeSpan.FromSeconds(10),
-                new ConfigFileConfiguration())).SingleInstance();
-
             var container = builder.Build();
 
 
