@@ -4,7 +4,7 @@ A simple REST Seft-hosted service to provide toggle feature service — Edit
 [![Build status](https://ci.appveyor.com/api/projects/status/0ugc2ogv9rcqfvx2?svg=true)](https://ci.appveyor.com/project/momo3038/featuretoggleservice)
 
 **Todo for Client assembly**
-- [ ] Remove TimeSpan from WebApi ctr. Add Timespan delay in the configuration file.
+- [x] Remove TimeSpan from WebApi ctr. Add Timespan delay in the configuration file.
 - [ ] Add system to poll web api with HEAD request to know if feature toggle should be retrieved.
 - [ ] Add cache system in client and handle error when the web api is not available.
 - [ ] Handle retry with Polly if Web Api is not available (Stop polling in that case).
